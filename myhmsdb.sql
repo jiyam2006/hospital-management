@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Mar 16, 2020 at 02:34 AM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.4
+-- Host: 127.0.0.1
+-- Generation Time: Mar 31, 2025 at 06:50 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -31,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `admintb` (
   `username` varchar(50) NOT NULL,
   `password` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `admintb`
@@ -60,16 +59,15 @@ CREATE TABLE `appointmenttb` (
   `apptime` time NOT NULL,
   `userStatus` int(5) NOT NULL,
   `doctorStatus` int(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `appointmenttb`
 --
 
 INSERT INTO `appointmenttb` (`pid`, `ID`, `fname`, `lname`, `gender`, `email`, `contact`, `doctor`, `docFees`, `appdate`, `apptime`, `userStatus`, `doctorStatus`) VALUES
-(61, 54, 'jay', 'sekhaliya', 'Male', 'jay@gmail.com', '1234567890', 'Dinesh', 700, '2025-03-20', '12:00:00', 1, 1),
-(62, 55, 'virat', 'patel', 'Male', 'virat@gmail.com', '1597563258', 'Dinesh', 1000, '2025-03-21', '10:00:00', 1, 1);
-
+(67, 68, 'jay', 'sekhaliya', 'Female', 'jay@gmail.com', '1234567890', 'Dinesh', 1000, '2025-03-28', '08:00:00', 1, 1),
+(68, 69, 'hasti', 'ghelani', 'Female', 'hasti@gmail.com', '1234567890', 'Kartik', 2000, '2025-03-31', '14:00:00', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -82,7 +80,7 @@ CREATE TABLE `contact` (
   `email` text NOT NULL,
   `contact` varchar(10) NOT NULL,
   `message` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `contact`
@@ -94,8 +92,8 @@ INSERT INTO `contact` (`name`, `email`, `contact`, `message`) VALUES
 ('harsh', 'harsh@gmail.com', '6925801473', 'GiVe better advice'),
 ('hiren', 'hiren@gmail.com', '8596471235', 'good'),
 ('utsav', 'utsav@gmail.com', '7456982013', 'great !!!'),
-('shivani', 'shivani@gmail.com', '9856201454', 'I Like it');
-
+('shivani', 'shivani@gmail.com', '9856201454', 'I Like it'),
+('jiya', 'jiya@gmail.com', '7894561230', 'your picture is not good');
 
 -- --------------------------------------------------------
 
@@ -104,6 +102,7 @@ INSERT INTO `contact` (`name`, `email`, `contact`, `message`) VALUES
 --
 
 CREATE TABLE `doctb` (
+  `id` int(255) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
@@ -111,21 +110,34 @@ CREATE TABLE `doctb` (
   `exper` varchar(50) NOT NULL,
   `joindate` date NOT NULL,
   `docFees` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `doctb`
 --
 
-INSERT INTO `doctb` (`username`, `password`, `email`, `spec`,`joindate`, `docFees`,`exper`) VALUES
-('ashok', 'ashok123', 'ashok@gmail.com', 'General', '2025-03-15',500,'2 years'),
-('arun', 'arun123', 'arun@gmail.com', 'Cardiologist', '2024-11-14', 600,'3 years'),
-('Dinesh', 'dinesh123', 'dinesh@gmail.com', 'General', '2022-01-01', 1000,'5 years'),
-('Ganesh', 'ganesh123', 'ganesh@gmail.com', 'Pediatrician', '2025-02-01', 550,'1 years'),
-('Kartik', 'kartik123', 'kartik@gmail.com', 'Pediatrician', '2020-09-02', 2000,'15 years'),
-('Amit', 'amit123', 'amit@gmail.com', 'Cardiologist', '2025-02-05', 700,'2 years'),
-('Aditya', 'aditya123', 'aditya@gmail.com', 'Neurologist', '2024-08-09', 1500,'6 years'),
-('abhi', 'abhi123', 'abhi@gmail.com', 'Neurologist', '2024-10-10', 900,'2 years');
+INSERT INTO `doctb` (`id`, `username`, `password`, `email`, `spec`, `exper`, `joindate`, `docFees`) VALUES
+(1, 'abhi', 'abhi123', 'abhi@gmail.com', 'Neurologist', '2 years', '2024-10-10', 900),
+(2, 'Aditya', 'aditya123', 'aditya@gmail.com', 'Neurologist', '6 years', '2024-08-09', 1500),
+(3, 'Amit', 'amit123', 'amit@gmail.com', 'Cardiologist', '2 years', '2025-02-05', 700),
+(4, 'arun', 'arun123', 'arun@gmail.com', 'Cardiologist', '3 years', '2024-11-14', 600),
+(5, 'ashok', 'ashok123', 'ashok@gmail.com', 'General', '2 years', '2025-03-15', 500),
+(6, 'Dinesh', 'dinesh123', 'dinesh@gmail.com', 'General', '5 years', '2022-01-01', 1000),
+(7, 'Ganesh', 'ganesh123', 'ganesh@gmail.com', 'Pediatrician', '1 years', '2025-02-01', 550),
+(8, 'Kartik', 'kartik123', 'kartik@gmail.com', 'Pediatrician', '15 years', '2020-09-02', 2000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `medicine`
+--
+
+CREATE TABLE `medicine` (
+  `srno` int(10) UNSIGNED NOT NULL,
+  `drugname` varchar(200) NOT NULL,
+  `quantity` int(200) NOT NULL,
+  `price` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -144,18 +156,15 @@ CREATE TABLE `patreg` (
   `password` varchar(30) NOT NULL,
   `cpassword` varchar(30) NOT NULL,
   `city` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `patreg`
 --
 
-INSERT INTO `patreg` (`pid`, `fname`, `lname`, `gender`,`age`, `email`, `contact`, `password`, `cpassword`,`city`) VALUES
-(60, 'krishna', 'radha', 'Male',60, 'radha@gmail.com', '3692581470', '123456', '123456','vrindavan'),
-(61, 'jay', 'sekhaliya', 'Male',22, 'jay@gmail.com', '1234567890', '123456', '123456','damnagar'),
-(62, 'virat', 'patel', 'Male',35, 'virat@gmail.com', '1597563258', '123456', '123456','mumbai');
-
-
+INSERT INTO `patreg` (`pid`, `fname`, `lname`, `gender`, `age`, `email`, `contact`, `password`, `cpassword`, `city`) VALUES
+(67, 'jay', 'sekhaliya', 'Female', 20, 'jay@gmail.com', '1234567890', '123456', '123456', 'surat'),
+(68, 'hasti', 'ghelani', 'Female', 21, 'hasti@gmail.com', '1234567890', '123456', '123456', 'surat');
 
 -- --------------------------------------------------------
 
@@ -164,27 +173,31 @@ INSERT INTO `patreg` (`pid`, `fname`, `lname`, `gender`,`age`, `email`, `contact
 --
 
 CREATE TABLE `prestb` (
+  `id` int(11) NOT NULL,
   `doctor` varchar(50) NOT NULL,
   `pid` int(11) NOT NULL,
-  `ID` int(11) NOT NULL,
+  `did` int(11) NOT NULL,
   `fname` varchar(50) NOT NULL,
   `lname` varchar(50) NOT NULL,
   `appdate` date NOT NULL,
   `apptime` time NOT NULL,
-  `disease` varchar(250) NOT NULL,
-  `allergy` varchar(250) NOT NULL,
-  `prescription` varchar(1000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `drugname` varchar(250) NOT NULL,
+  `route` varchar(250) NOT NULL,
+  `frequencytime` text NOT NULL,
+  `quantity` int(200) NOT NULL,
+  `price` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `prestb`
 --
 
-INSERT INTO `prestb` (`doctor`, `pid`, `ID`, `fname`, `lname`, `appdate`, `apptime`, `disease`, `allergy`, `prescription`) VALUES
-('Dinesh', 47, 43, 'jiya', 'monpara', '2025-03-17', '08:00:00', 'cold', 'sand', 'wear mask'),
-('Amit', 48, 44, 'tisha', 'patel', '2025-03-18', '10:00:00', 'hgb rrvs', 'ferg', 'gerrg'),
-('Dinesh', 61, 54, 'jay', 'sekhaliya', '2025-03-20', '12:00:00', 'cold', 'sand', 'distance between sand'),
-('Dinesh', 62, 65, 'virat', 'patel', '2025-03-21', '10:00:00', 'fever', 'cold air', 'stay without AC');
+INSERT INTO `prestb` (`id`, `doctor`, `pid`, `did`, `fname`, `lname`, `appdate`, `apptime`, `drugname`, `route`, `frequencytime`, `quantity`, `price`) VALUES
+(70, 'Dinesh', 67, 68, 'jay', 'sekhaliya', '2025-03-28', '08:00:00', 'pantoprazole', 'oral', '1-1-1-1', 15, 90),
+(72, 'Dinesh', 67, 68, 'jay', 'sekhaliya', '2025-03-28', '08:00:00', 'omeprazole', 'ointment', '1-1-1-1', 15, 105),
+(73, 'Dinesh', 67, 68, 'jay', 'sekhaliya', '2025-03-28', '08:00:00', 'omeprazole', 'ointment', '1-1-1-1', 156, 1092),
+(74, 'Dinesh', 67, 68, 'jay', 'sekhaliya', '2025-03-28', '08:00:00', 'vmlodipine', 'oral', '1-1-1-1', 1552, 3104),
+(75, 'Kartik', 68, 69, 'hasti', 'ghelani', '2025-03-31', '14:00:00', 'oxycodone', 'oral', '1-1-1-1', 52, 624);
 
 --
 -- Indexes for dumped tables
@@ -197,10 +210,29 @@ ALTER TABLE `appointmenttb`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `doctb`
+--
+ALTER TABLE `doctb`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`username`);
+
+--
+-- Indexes for table `medicine`
+--
+ALTER TABLE `medicine`
+  ADD PRIMARY KEY (`srno`);
+
+--
 -- Indexes for table `patreg`
 --
 ALTER TABLE `patreg`
   ADD PRIMARY KEY (`pid`);
+
+--
+-- Indexes for table `prestb`
+--
+ALTER TABLE `prestb`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -210,13 +242,31 @@ ALTER TABLE `patreg`
 -- AUTO_INCREMENT for table `appointmenttb`
 --
 ALTER TABLE `appointmenttb`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+
+--
+-- AUTO_INCREMENT for table `doctb`
+--
+ALTER TABLE `doctb`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `medicine`
+--
+ALTER TABLE `medicine`
+  MODIFY `srno` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `patreg`
 --
 ALTER TABLE `patreg`
-  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+
+--
+-- AUTO_INCREMENT for table `prestb`
+--
+ALTER TABLE `prestb`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

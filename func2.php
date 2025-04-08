@@ -1,67 +1,58 @@
 <?php
 session_start();
-$con=mysqli_connect("localhost","root","","myhmsdb");
-if(isset($_POST['patsub1'])){
-	$fname=$_POST['fname'];
-  $lname=$_POST['lname'];
-  $age=$_POST['age'];
-  $city=$_POST['city'];
-  $gender=$_POST['gender'];
-  $email=$_POST['email'];
-  $contact=$_POST['contact'];
-	$password=$_POST['password'];
-  $cpassword=$_POST['cpassword'];
-  if($password==$cpassword){
-  	$query="insert into patreg(fname,lname,age,city,gender,email,contact,password,cpassword) values ('$fname','$lname','$age','$city','$gender','$email','$contact','$password','$cpassword');";
-    $result=mysqli_query($con,$query);
-    if($result){
-        $_SESSION['username'] = $_POST['fname']." ".$_POST['lname'];
-        $_SESSION['fname'] = $_POST['fname'];
-        $_SESSION['lname'] = $_POST['lname'];
-        $_SESSION['age'] = $_POST['age'];
-        $_SESSION['city'] = $_POST['city'];
-        $_SESSION['gender'] = $_POST['gender'];
-        $_SESSION['contact'] = $_POST['contact'];
-        $_SESSION['email'] = $_POST['email'];
-        header("Location:admin-panel.php");
-    } 
+$con = mysqli_connect("localhost", "root", "", "myhmsdb");
 
-    $query1 = "select * from patreg;";
-    $result1 = mysqli_query($con,$query1);
-    if($result1){
-      $_SESSION['pid'] = $row['pid'];
+// Patient Registration Handler
+if (isset($_POST['patsub1'])) {
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
+    $age = $_POST['age'];
+    $city = $_POST['city'];
+    $gender = $_POST['gender'];
+    $email = $_POST['email'];
+    $contact = $_POST['contact'];
+    $password = $_POST['password'];
+    $cpassword = $_POST['cpassword'];
+
+    if ($password == $cpassword) {
+        $query = "INSERT INTO patreg (fname, lname, age, city, gender, email, contact, password, cpassword)
+                  VALUES ('$fname', '$lname', '$age', '$city', '$gender', '$email', '$contact', '$password', '$cpassword')";
+        $result = mysqli_query($con, $query);
+
+        if ($result) {
+            $_SESSION['pid'] = mysqli_insert_id($con); // Fetch the auto-incremented pid
+            $_SESSION['username'] = $fname . " " . $lname;
+            $_SESSION['fname'] = $fname;
+            $_SESSION['lname'] = $lname;
+            $_SESSION['age'] = $age;
+            $_SESSION['city'] = $city;
+            $_SESSION['gender'] = $gender;
+            $_SESSION['contact'] = $contact;
+            $_SESSION['email'] = $email;
+
+            header("Location:admin-panel.php");
+            exit();
+        } else {
+            echo "Error inserting patient: " . mysqli_error($con);
+        }
+    } else {
+        header("Location:error1.php");
+        exit();
     }
-
-  }
-  else{
-    header("Location:error1.php");
-  }
-}
-if(isset($_POST['update_data']))
-{
-	$contact=$_POST['contact'];
-	$status=$_POST['status'];
-	$query="update appointmenttb set payment='$status' where contact='$contact';";
-	$result=mysqli_query($con,$query);
-	if($result)
-		header("Location:updated.php");
 }
 
+// Appointment Payment Update Handler
+if (isset($_POST['update_data'])) {
+    $contact = $_POST['contact'];
+    $status = $_POST['status'];
+    $query = "UPDATE appointmenttb SET payment='$status' WHERE contact='$contact'";
+    $result = mysqli_query($con, $query);
+    if ($result) {
+        header("Location:updated.php");
+        exit();
+    }
+}
 
-
-
-// function display_docs()
-// {
-// 	global $con;
-// 	$query="select * from doctb";
-// 	$result=mysqli_query($con,$query);
-// 	while($row=mysqli_fetch_array($result))
-// 	{
-// 		$name=$row['name'];
-// 		# echo'<option value="" disabled selected>Select Doctor</option>';
-// 		echo '<option value="'.$name.'">'.$name.'</option>';
-// 	}
-// }
 
 if(isset($_POST['doc_sub']))
 {
